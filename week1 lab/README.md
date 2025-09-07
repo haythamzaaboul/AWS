@@ -16,8 +16,8 @@
    - Public subnet `10.0.1.0/24`, private subnet `10.0.2.0/24` (both in the same AZ for this lab)
 2. **Routes Table**
    - Public RT: `0.0.0.0/0 -> IGW`
-   - Private RT: `0.0.0.0/0 -> NAT` (if used)
-   - (Bonus) S3 Gateway Endpoint associated to private RT
+   - Private RT: `0.0.0.0/0 -> NAT` 
+   - S3 Gateway Endpoint associated to private RT
 3. **Security Group**
    - Inbound: HTTP 80 from `0.0.0.0/0`, SSH 22 from my IP `/32`
    - Outbound: All traffic `0.0.0.0/0`
