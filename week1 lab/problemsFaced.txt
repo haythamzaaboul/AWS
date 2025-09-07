@@ -1,0 +1,12 @@
+- The main probleme I faced was when I tryed to run the EC2 Instance in my ASL Ubunto with "/mnt/c" as the directory I was working in: 
+    - even with chmod 400 <<my-private-key.pem>> or chmod 600 it didn't work.
+
+    ==> debugging : Apparently for you to be able to use the key it shouldn't be accesible by others thus the error : 
+        "Permissions 6555 for  are too open. It is required that your private key files are NOT accessible by others.This private key will be ignored."
+        so I thought I simple chmod 400 or 600 will get the job done. But suprisengly it didn't. So after searching and debugging I found out that when you use a mount on ASL Ubunto
+        even with chmod 400, ASL sees the file as having a 0555 permission. which is a permission "too open" for AWS to consider the key secure therefore it ignores it. 
+
+    ==> Solution : to remidy this probleme I moved the private key into WSL's Linux filesystem and lock perms :
+        //mkdir -p ~/.ssh && chmod 700 ~/.ssh
+        //mv /mnt/c/Users/zaabo/AWS/AWS-week1-lab-key.pem ~/.ssh/
+        //chmod 400 ~/.ssh/AWS-week1-lab-key.pem
